@@ -25,17 +25,35 @@ public class CollisionDetector {
         switch (entity.direction) {
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed)/gp.getTileSize();
-                tileNum1 = gp.tileManager.getWorldMapIndex()[entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileManager.getWorldMapIndex()[entityRightCol][entityTopRow];
+                tileNum1 = gp.tileManager.getWorldMapIndex()[entityTopRow][entityLeftCol];
+                tileNum2 = gp.tileManager.getWorldMapIndex()[entityTopRow][entityRightCol];
                 if (gp.tileManager.getTiles()[tileNum1].collision == true || gp.tileManager.getTiles()[tileNum2].collision == true){
                     entity.collision = true;
                 }
                 break;
             case "down":
-                break;
-            case "right":
+                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.getTileSize();
+                tileNum1 = gp.tileManager.getWorldMapIndex()[entityBottomRow][entityLeftCol];
+                tileNum2 = gp.tileManager.getWorldMapIndex()[entityBottomRow][entityRightCol];
+                if (gp.tileManager.getTiles()[tileNum1].collision == true || gp.tileManager.getTiles()[tileNum2].collision == true){
+                    entity.collision = true;
+                }
                 break;
             case "left":
+                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.getTileSize();
+                tileNum1 = gp.tileManager.getWorldMapIndex()[entityTopRow][entityLeftCol];
+                tileNum2 = gp.tileManager.getWorldMapIndex()[entityBottomRow][entityLeftCol];
+                if (gp.tileManager.getTiles()[tileNum1].collision == true || gp.tileManager.getTiles()[tileNum2].collision == true){
+                    entity.collision = true;
+                }
+                break;
+            case "right":
+                entityRightCol = (entityRightWorldX + entity.speed) / gp.getTileSize();
+                tileNum1 = gp.tileManager.getWorldMapIndex()[entityTopRow][entityRightCol];
+                tileNum2 = gp.tileManager.getWorldMapIndex()[entityBottomRow][entityRightCol];
+                if (gp.tileManager.getTiles()[tileNum1].collision == true || gp.tileManager.getTiles()[tileNum2].collision == true){
+                    entity.collision = true;
+                }
                 break;
         }
 

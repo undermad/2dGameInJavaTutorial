@@ -80,6 +80,22 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
             isMoving = true;
+
+            //CHECK TILE COLLISION
+            collision = false;
+
+            gp.getCollisionDetector().checkTile(this);
+            if (collision == false) {
+                if (direction == "up")
+                    worldY -= speed;
+                if (direction == "down")
+                    worldY += speed;
+                if (direction == "left")
+                    worldX -= speed;
+                if (direction == "right")
+                    worldX += speed;
+            }
+
         } else
             isMoving = false;
 
@@ -97,20 +113,7 @@ public class Player extends Entity {
         }
 
 
-        //CHECK TILE COLLISION
-        collision = false;
-        gp.getCollisionDetector().checkTile(this);
-        if (collision == false) {
-            if (direction == "up")
-                worldY -= speed;
-            if (direction == "down")
-                worldY += speed;
-            if (direction == "left")
-                worldX -= speed;
-            if (direction == "right")
-                worldX += speed;
-        }
-        System.out.println(this.direction);
+
     }
 
 

@@ -39,16 +39,23 @@ public class TileManager {
             tiles[0] = new Tile();
             tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/sprites/dungeon/tileset.png")).getSubimage(0, 16, 16, 16);
 
+
             //
             tiles[1] = new Tile();
             tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/sprites/dungeon/tileset.png")).getSubimage(16, 16, 16, 16);
+            tiles[1].collision = true;
+
 
             tiles[2] = new Tile();
             tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/sprites/dungeon/tileset.png")).getSubimage(32, 16, 16, 16);
+            tiles[2].collision = true;
+
 
             // WALL
             tiles[3] = new Tile();
             tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/sprites/dungeon/tileset.png")).getSubimage(16, 0, 16, 16);
+            tiles[3].collision = true;
+
 
         } catch (IOException e) {
             e.printStackTrace();
