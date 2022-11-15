@@ -20,9 +20,12 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     final int maxWorldCol = 50;
     final int maxWorldRow = 50;
+    final int worldWidth = tileSize * maxWorldCol;
+    final int worldHeight = tileSize * maxWorldRow;
 
     // CORE GAME SETTINGS
     int FPS = 60;
+    CollisionDetector collisionDetector = new CollisionDetector(this);
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
@@ -33,20 +36,36 @@ public class GamePanel extends JPanel implements Runnable {
         return tileSize;
     }
 
-    public int getMaxScreenCol() {
-        return maxScreenCol;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
-    }
-
     public int getMaxWorldCol() {
         return maxWorldCol;
     }
 
     public int getMaxWorldRow() {
         return maxWorldRow;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public CollisionDetector getCollisionDetector() {
+        return collisionDetector;
     }
 
     // CONSTRUCTORS
@@ -102,7 +121,7 @@ public class GamePanel extends JPanel implements Runnable {
                 throw new RuntimeException(e);
             }
 
-            if(timer >= 1000000000){
+            if (timer >= 1000000000) {
                 System.out.println("FPS: " + fpsCounter);
                 fpsCounter = 0;
                 timer = 0;

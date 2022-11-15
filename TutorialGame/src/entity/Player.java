@@ -12,18 +12,35 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyHandler;
+    private final int screenX;
+    private final int screenY;
 
+
+    //GETTERS
+    public int getScreenX() {
+        return screenX;
+    }
+
+    public int getScreenY() {
+        return screenY;
+    }
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
+
+        this.screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2); //POSITION ON SCREEN
+        this.screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);// POSITION ON SCREEN
+
+        collisionArea = new Rectangle(8, 16, 32, 32);
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        x = 0;
-        y = 0;
+        worldX = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
+        worldY = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
         speed = 4;
         direction = "down";
     }
@@ -68,23 +85,36 @@ public class Player extends Entity {
 
         if (keyHandler.wKeypad == true) {
             direction = "up";
-            y -= speed;
         }
         if (keyHandler.sKeypad == true) {
             direction = "down";
-            y += speed;
         }
         if (keyHandler.aKeypad == true) {
             direction = "left";
-            x -= speed;
         }
         if (keyHandler.dKeypad == true) {
             direction = "right";
-            x += speed;
         }
 
 
+        //CHECK TILE COLLISION
+        collision = false;
+        gp.getCollisionDetector().checkTile(this);
+        if (collision == false) {
+            if (direction == "up")
+                worldY -= speed;
+            if (direction == "down")
+                worldY += speed;
+            if (direction == "left")
+                worldX -= speed;
+            if (direction == "right")
+                worldX += speed;
+        }
+        System.out.println(this.direction);
     }
+
+
+
 
     public void draw(Graphics2D g2) {
 
@@ -121,7 +151,8 @@ public class Player extends Entity {
             image = standDown;
 
 
-        g2.drawImage(image, x, y, gp.getTileSize(), gp.getTileSize(), null);
+        g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+
 
     }
 }
