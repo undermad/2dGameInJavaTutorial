@@ -5,8 +5,6 @@ import main.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TileManager {
 
@@ -91,13 +89,13 @@ public class TileManager {
             for (int j = 0; j < gp.getMaxWorldCol(); j++) {
                 int worldX = j * gp.getTileSize();
                 int worldY = i * gp.getTileSize();
-                int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getScreenX();
-                int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().getScreenY();
+                int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getPositionOnScreenX();
+                int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().getPositionOnScreenY();
 
-                if (worldX + gp.getTileSize()> gp.getPlayer().worldX - gp.getPlayer().getScreenX() &&
-                        worldX -gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().getScreenX() &&
-                        worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().getScreenY() &&
-                        worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().getScreenY()) {
+                if (worldX + gp.getTileSize()> gp.getPlayer().worldX - gp.getPlayer().getPositionOnScreenX() &&
+                        worldX -gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().getPositionOnScreenX() &&
+                        worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().getPositionOnScreenY() &&
+                        worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().getPositionOnScreenY()) {
 
                     g2.drawImage(tiles[worldMapIndex[i][j]].image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
 

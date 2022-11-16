@@ -1,10 +1,13 @@
 package main;
 
 import entity.Player;
+import objects.ObjectManager;
+import objects.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -25,45 +28,38 @@ public class GamePanel extends JPanel implements Runnable {
 
     // CORE GAME SETTINGS
     int FPS = 60;
-    CollisionDetector collisionDetector = new CollisionDetector(this);
     Thread gameThread;
+    CollisionDetector collisionDetector = new CollisionDetector(this);
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
     TileManager tileManager = new TileManager(this);
+    ObjectManager objectManager = new ObjectManager(this);
 
     // GETTERS
     public int getTileSize() {
         return tileSize;
     }
-
     public int getMaxWorldCol() {
         return maxWorldCol;
     }
-
     public int getMaxWorldRow() {
         return maxWorldRow;
     }
-
     public int getWorldWidth() {
         return worldWidth;
     }
-
     public int getWorldHeight() {
         return worldHeight;
     }
-
     public Player getPlayer() {
         return player;
     }
-
     public int getScreenWidth() {
         return screenWidth;
     }
-
     public int getScreenHeight() {
         return screenHeight;
     }
-
     public CollisionDetector getCollisionDetector() {
         return collisionDetector;
     }
@@ -79,6 +75,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     // METHODS
+    public void setObjects(){
+        objectManager.setObjects();
+    }
     public void startGameThread() {
 
         gameThread = new Thread(this);
@@ -142,7 +141,16 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
 
+        //TILES
         tileManager.draw(g2);
+        
+        //OBJECTS
+        for (SuperObject o :
+                objectManager.getObjects()) {
+            o.draw(g2, this);
+        }
+        
+        //PLAYER
         player.draw(g2);
         g2.dispose();
 

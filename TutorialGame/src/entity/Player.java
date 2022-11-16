@@ -12,30 +12,31 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyHandler;
-    private final int screenX;
-    private final int screenY;
 
+    private final int positionOnScreenX;
+    private final int positionOnScreenY;
 
-    //GETTERS
-    public int getScreenX() {
-        return screenX;
-    }
-
-    public int getScreenY() {
-        return screenY;
-    }
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
 
-        this.screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2); //POSITION ON SCREEN
-        this.screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);// POSITION ON SCREEN
+        this.positionOnScreenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2); //POSITION ON SCREEN
+        this.positionOnScreenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);// POSITION ON SCREEN
 
-        collisionArea = new Rectangle(8, 16, 32, 32);
+        collisionArea = new Rectangle(10, 20, 30, 24); //
 
         setDefaultValues();
         getPlayerImage();
+    }
+    //GETTERS
+
+    public int getPositionOnScreenX() {
+        return positionOnScreenX;
+    }
+
+    public int getPositionOnScreenY() {
+        return positionOnScreenY;
     }
 
     public void setDefaultValues() {
@@ -68,6 +69,7 @@ public class Player extends Entity {
 
     public void update() {
 
+
         if (keyHandler.wKeypad == true || keyHandler.dKeypad == true ||
                 keyHandler.aKeypad == true || keyHandler.sKeypad == true) {
             spriteCounter++;
@@ -83,7 +85,6 @@ public class Player extends Entity {
 
             //CHECK TILE COLLISION
             collision = false;
-
             gp.getCollisionDetector().checkTile(this);
             if (collision == false) {
                 if (direction == "up")
@@ -154,7 +155,7 @@ public class Player extends Entity {
             image = standDown;
 
 
-        g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+        g2.drawImage(image, positionOnScreenX, positionOnScreenY, gp.getTileSize(), gp.getTileSize(), null);
 
 
     }
