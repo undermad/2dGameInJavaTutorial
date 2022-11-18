@@ -11,6 +11,21 @@ public abstract class SuperObject {
     protected String name;
     protected int worldX, worldY;
     protected boolean collision = false;
+    protected Rectangle collisionArea = new Rectangle(0,0,48,48);
+    protected int collisionAreaDefaultX = 0;
+    protected int collisionAreaDefaultY = 0;
+
+    public Rectangle getCollisionArea() {
+        return collisionArea;
+    }
+
+    public int getCollisionAreaDefaultX() {
+        return collisionAreaDefaultX;
+    }
+
+    public int getCollisionAreaDefaultY() {
+        return collisionAreaDefaultY;
+    }
 
     public String getName() {
         return name;

@@ -5,8 +5,9 @@ import main.GamePanel;
 import java.util.ArrayList;
 
 public class ObjectManager {
-    GamePanel gp;
-    ArrayList<SuperObject> objects;
+
+    private GamePanel gp;
+    private ArrayList<SuperObject> objects;
 
     public ObjectManager(GamePanel gp) {
         this.gp = gp;

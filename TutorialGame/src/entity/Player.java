@@ -25,6 +25,8 @@ public class Player extends Entity {
         this.positionOnScreenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);// POSITION ON SCREEN
 
         collisionArea = new Rectangle(10, 20, 30, 24); //
+        this.collisionAreaDefaultX = (int)collisionArea.getX();
+        this.collisionAreaDefaultY = (int)collisionArea.getY();
 
         setDefaultValues();
         getPlayerImage();
@@ -82,6 +84,9 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
             isMoving = true;
+
+            //CHECK OBJECT COLLISION
+            gp.getCollisionDetector().checkObject(this,true);
 
             //CHECK TILE COLLISION
             collision = false;
