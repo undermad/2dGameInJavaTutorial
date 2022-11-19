@@ -36,6 +36,10 @@ public class GamePanel extends JPanel implements Runnable {
     ObjectManager objectManager = new ObjectManager(this);
 
     // GETTERS
+
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
     public int getTileSize() {
         return tileSize;
     }

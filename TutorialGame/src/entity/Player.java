@@ -15,6 +15,7 @@ public class Player extends Entity {
 
     private final int positionOnScreenX;
     private final int positionOnScreenY;
+    private int healthPotionsAmount = 0;
 
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
@@ -25,8 +26,8 @@ public class Player extends Entity {
         this.positionOnScreenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);// POSITION ON SCREEN
 
         collisionArea = new Rectangle(10, 20, 30, 24); //
-        this.collisionAreaDefaultX = (int)collisionArea.getX();
-        this.collisionAreaDefaultY = (int)collisionArea.getY();
+        this.collisionAreaDefaultX = (int) collisionArea.getX();
+        this.collisionAreaDefaultY = (int) collisionArea.getY();
 
         setDefaultValues();
         getPlayerImage();
@@ -69,6 +70,19 @@ public class Player extends Entity {
         }
     }
 
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            String item = gp.getObjectManager().getObjects().get(i).getName();
+
+            switch (item) {
+                case "Small Health Potion":
+                    healthPotionsAmount++;
+                    System.out.println("Small Health Potions: " + healthPotionsAmount + ".");
+                    gp.getObjectManager().getObjects().remove(i);
+            }
+        }
+    }
+
     public void update() {
 
 
@@ -86,7 +100,7 @@ public class Player extends Entity {
             isMoving = true;
 
             //CHECK OBJECT COLLISION
-            gp.getCollisionDetector().checkObject(this,true);
+            pickUpObject(gp.getCollisionDetector().checkObject(this, true));
 
             //CHECK TILE COLLISION
             collision = false;
@@ -119,10 +133,7 @@ public class Player extends Entity {
         }
 
 
-
     }
-
-
 
 
     public void draw(Graphics2D g2) {

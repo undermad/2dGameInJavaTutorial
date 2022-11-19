@@ -87,10 +87,10 @@ public class TileManager {
 
         for (int i = 0; i < gp.getMaxWorldRow(); i++) {
             for (int j = 0; j < gp.getMaxWorldCol(); j++) {
-                int worldX = j * gp.getTileSize();
-                int worldY = i * gp.getTileSize();
-                int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getPositionOnScreenX();
-                int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().getPositionOnScreenY();
+                int worldX = j * gp.getTileSize(); // WHERE TILE IS IN THE WORLD
+                int worldY = i * gp.getTileSize(); // WHERE TILE IS IN THE WORLD
+                int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getPositionOnScreenX(); // WHERE IT SHOULD RENDER ON SCREEN
+                int screenY = worldY - gp.getPlayer().worldY + gp.getPlayer().getPositionOnScreenY(); //  WHERE IT SHOULD BE RENDERED ON SCREEN
 
                 if (worldX + gp.getTileSize()> gp.getPlayer().worldX - gp.getPlayer().getPositionOnScreenX() &&
                         worldX -gp.getTileSize() < gp.getPlayer().worldX + gp.getPlayer().getPositionOnScreenX() &&

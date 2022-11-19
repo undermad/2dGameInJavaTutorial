@@ -43,6 +43,10 @@ public abstract class SuperObject {
         return collision;
     }
 
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
+
     public void draw(Graphics2D g2, GamePanel gp) {
 
         int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getPositionOnScreenX();
