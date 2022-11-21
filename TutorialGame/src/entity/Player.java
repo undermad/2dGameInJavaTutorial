@@ -79,6 +79,13 @@ public class Player extends Entity {
                     healthPotionsAmount++;
                     System.out.println("Small Health Potions: " + healthPotionsAmount + ".");
                     gp.getObjectManager().getObjects().remove(i);
+                    break;
+                case "Small Speed Potion":
+                    System.out.println("Drinking speed potion! Wrrrrrrrrrrrrrruuummmmmm!");
+                    gp.getObjectManager().getObjects().get(i).onPickUp();
+                    gp.getObjectManager().getObjects().remove(i);
+                    break;
+
             }
         }
     }
@@ -133,6 +140,7 @@ public class Player extends Entity {
 
 
     public void draw(Graphics2D g2) {
+
 
         BufferedImage image = null;
         if (isMoving) {

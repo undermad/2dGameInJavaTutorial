@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class SuperObject {
+    protected String type;
     protected BufferedImage image;
     protected GamePanel gp;
     protected String name;
@@ -14,6 +15,10 @@ public abstract class SuperObject {
     protected Rectangle collisionArea = new Rectangle(0,0,48,48);
     protected int collisionAreaDefaultX = 0;
     protected int collisionAreaDefaultY = 0;
+
+    public String getType() {
+        return type;
+    }
 
     public Rectangle getCollisionArea() {
         return collisionArea;
@@ -46,6 +51,7 @@ public abstract class SuperObject {
     public void setCollision(boolean collision) {
         this.collision = collision;
     }
+    public abstract void onPickUp ();
 
     public void draw(Graphics2D g2, GamePanel gp) {
 

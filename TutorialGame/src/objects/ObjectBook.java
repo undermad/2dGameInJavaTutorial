@@ -26,4 +26,9 @@ public class ObjectBook extends SuperObject{
         }
 
     }
+
+    @Override
+    public void onPickUp() {
+
+    }
 }

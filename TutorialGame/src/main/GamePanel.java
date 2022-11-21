@@ -126,6 +126,8 @@ public class GamePanel extends JPanel implements Runnable {
 
             if (timer >= 1000000000) {
                 System.out.println("FPS: " + fpsCounter);
+                System.out.println("Speed: " + player.speed);
+
                 fpsCounter = 0;
                 timer = 0;
             }
@@ -139,7 +141,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void paintComponent(Graphics g) {
+    public synchronized void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -147,13 +149,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         //TILES
         tileManager.draw(g2);
-        
+
         //OBJECTS
-        for (SuperObject o :
-                objectManager.getObjects()) {
-            o.draw(g2, this);
+        for (int i = 0; i<objectManager.getObjects().size(); i++){
+            objectManager.getObjects().get(i).draw(g2, this);
         }
-        
         //PLAYER
         player.draw(g2);
         g2.dispose();

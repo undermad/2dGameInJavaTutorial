@@ -31,7 +31,6 @@ public class CollisionDetector {
 
                             if (player)
                                 index = i;
-                            System.out.println("up");
                         }
                         break;
                     case "down":
@@ -40,7 +39,6 @@ public class CollisionDetector {
 
                             if (player)
                                 index = i;
-                            System.out.println("down");
                         }
                         break;
                     case "left":
@@ -49,7 +47,6 @@ public class CollisionDetector {
                             if (player)
                                 index = i;
                         }
-                        System.out.println("left");
 
                         break;
                     case "right":
@@ -57,7 +54,6 @@ public class CollisionDetector {
                         if (entity.collisionArea.intersects(gp.objectManager.getObjects().get(i).getCollisionArea())) {
                             if (player)
                                 index = i;
-                            System.out.println("right");
                         }
                         break;
                 }
