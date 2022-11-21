@@ -30,6 +30,7 @@ public class ObjectSmallSpeedPotion extends SuperObject{
 
     @Override
     public void onPickUp() {
+        gp.playSoundEffect(1);
         gp.getPlayer().speed += 1;
     }
 

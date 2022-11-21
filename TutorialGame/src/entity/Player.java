@@ -78,6 +78,7 @@ public class Player extends Entity {
                 case "Small Health Potion":
                     healthPotionsAmount++;
                     System.out.println("Small Health Potions: " + healthPotionsAmount + ".");
+                    gp.getObjectManager().getObjects().get(i).onPickUp();
                     gp.getObjectManager().getObjects().remove(i);
                     break;
                 case "Small Speed Potion":
@@ -85,6 +86,10 @@ public class Player extends Entity {
                     gp.getObjectManager().getObjects().get(i).onPickUp();
                     gp.getObjectManager().getObjects().remove(i);
                     break;
+                case "Book":
+                    System.out.println("I feel incredible smart!");
+                    gp.getObjectManager().getObjects().get(i).onPickUp();
+                    gp.getObjectManager().getObjects().remove(i);
 
             }
         }

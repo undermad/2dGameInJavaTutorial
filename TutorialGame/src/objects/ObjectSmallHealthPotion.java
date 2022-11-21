@@ -30,6 +30,6 @@ public class ObjectSmallHealthPotion extends SuperObject {
 
     @Override
     public void onPickUp() {
-
+        gp.playSoundEffect(1);
     }
 }

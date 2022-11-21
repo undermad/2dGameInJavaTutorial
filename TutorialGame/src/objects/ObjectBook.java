@@ -29,6 +29,6 @@ public class ObjectBook extends SuperObject{
 
     @Override
     public void onPickUp() {
-
+        gp.playSoundEffect(2);
     }
 }

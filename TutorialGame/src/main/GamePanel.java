@@ -2,12 +2,10 @@ package main;
 
 import entity.Player;
 import objects.ObjectManager;
-import objects.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -23,20 +21,22 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     final int maxWorldCol = 50;
     final int maxWorldRow = 50;
-    final int worldWidth = tileSize * maxWorldCol;
-    final int worldHeight = tileSize * maxWorldRow;
 
-    // CORE GAME SETTINGS
+    // FPS
     int FPS = 60;
+
+    // SYSTEM
     Thread gameThread;
-    CollisionDetector collisionDetector = new CollisionDetector(this);
     KeyHandler keyH = new KeyHandler();
-    Player player = new Player(this, keyH);
+    CollisionDetector collisionDetector = new CollisionDetector(this);
     TileManager tileManager = new TileManager(this);
     ObjectManager objectManager = new ObjectManager(this);
+    Sound soundManager = new Sound();
+
+    // PLAYER AND OBJECTS
+    Player player = new Player(this, keyH);
 
     // GETTERS
-
     public ObjectManager getObjectManager() {
         return objectManager;
     }
@@ -48,12 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public int getMaxWorldRow() {
         return maxWorldRow;
-    }
-    public int getWorldWidth() {
-        return worldWidth;
-    }
-    public int getWorldHeight() {
-        return worldHeight;
     }
     public Player getPlayer() {
         return player;
@@ -79,8 +73,21 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     // METHODS
-    public void setObjects(){
+    public void setupGame(){
         objectManager.setObjects();
+        playMusic(0);
+    }
+    public void playMusic(int i){
+        soundManager.setFile(i);
+        soundManager.play();
+        soundManager.loop();
+    }
+    public void stopMusic(){
+        soundManager.stop();
+    }
+    public void playSoundEffect(int i){
+        soundManager.setFile(i);
+        soundManager.play();
     }
     public void startGameThread() {
 
@@ -103,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
         while (gameThread != null) {
 
             update();
-            repaint();
+            repaint(); // calling paintComponent method
 
             currentTime = System.nanoTime();
             timer += currentTime - lastTime;
@@ -141,7 +148,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public synchronized void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
