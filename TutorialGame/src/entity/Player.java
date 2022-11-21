@@ -26,8 +26,8 @@ public class Player extends Entity {
         this.positionOnScreenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);// POSITION ON SCREEN
 
         collisionArea = new Rectangle(10, 20, 30, 24); //
-        this.collisionAreaDefaultX = (int) collisionArea.getX();
-        this.collisionAreaDefaultY = (int) collisionArea.getY();
+        this.collisionAreaDefaultX = collisionArea.x;
+        this.collisionAreaDefaultY = collisionArea.y;
 
         setDefaultValues();
         getPlayerImage();
@@ -99,22 +99,18 @@ public class Player extends Entity {
             }
             isMoving = true;
 
-            //CHECK OBJECT COLLISION
-            pickUpObject(gp.getCollisionDetector().checkObject(this, true));
-
             //CHECK TILE COLLISION
             collision = false;
             gp.getCollisionDetector().checkTile(this);
             if (collision == false) {
-                if (direction == "up")
-                    worldY -= speed;
-                if (direction == "down")
-                    worldY += speed;
-                if (direction == "left")
-                    worldX -= speed;
-                if (direction == "right")
-                    worldX += speed;
+                if (direction == "up") worldY -= speed;
+                if (direction == "down") worldY += speed;
+                if (direction == "left") worldX -= speed;
+                if (direction == "right") worldX += speed;
             }
+
+            //CHECK OBJECT COLLISION
+            pickUpObject(gp.getCollisionDetector().checkObject(this, true));
 
         } else
             isMoving = false;

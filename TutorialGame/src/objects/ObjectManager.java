@@ -21,5 +21,6 @@ public class ObjectManager {
     public void setObjects() {
 
         objects.add(new ObjectSmallHealthPotion(23,22,gp));
+        objects.add(new ObjectBook(23,23,gp));
     }
 }

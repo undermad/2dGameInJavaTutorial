@@ -17,52 +17,47 @@ public class CollisionDetector {
             if (gp.objectManager.getObjects() != null) {
 
                 // GET PLAYER COLLISION AREA
-                entity.collisionArea.x = (int) (entity.worldX + entity.collisionArea.getX());
-                entity.collisionArea.y = (int) (entity.worldY + entity.collisionArea.getY());
+                entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
+                entity.collisionArea.y = entity.worldY + entity.collisionArea.y;
 
                 // GET OBJECT COLLISION AREA
-                gp.objectManager.getObjects().get(i).getCollisionArea().x = (int) (gp.objectManager.getObjects().get(i).getWorldX() + gp.objectManager.getObjects().get(i).getCollisionArea().getX());
-                gp.objectManager.getObjects().get(i).getCollisionArea().y = (int) (gp.objectManager.getObjects().get(i).getWorldY() + gp.objectManager.getObjects().get(i).getCollisionArea().getY());
+                gp.objectManager.getObjects().get(i).getCollisionArea().x = gp.objectManager.getObjects().get(i).getWorldX() + gp.objectManager.getObjects().get(i).getCollisionArea().x;
+                gp.objectManager.getObjects().get(i).getCollisionArea().y = gp.objectManager.getObjects().get(i).getWorldY() + gp.objectManager.getObjects().get(i).getCollisionArea().y;
 
                 switch (entity.direction) {
                     case "up":
                         entity.collisionArea.y -= entity.speed;
-                        if (gp.objectManager.getObjects().get(i).getCollisionArea().intersects(entity.collisionArea)) {
-                            if (gp.objectManager.getObjects().get(i).isCollision()) {
-                                entity.collision = true;
-                            }
+                        if (entity.collisionArea.intersects(gp.objectManager.getObjects().get(i).getCollisionArea())) {
+
                             if (player)
-                                return i;
+                                index = i;
+                            System.out.println("up");
                         }
                         break;
                     case "down":
                         entity.collisionArea.y += entity.speed;
-                        if (gp.objectManager.getObjects().get(i).getCollisionArea().intersects(entity.collisionArea)) {
-                            if (gp.objectManager.getObjects().get(i).isCollision()) {
-                                entity.collision = true;
-                            }
+                        if (entity.collisionArea.intersects(gp.objectManager.getObjects().get(i).getCollisionArea())) {
+
                             if (player)
-                                return i;
+                                index = i;
+                            System.out.println("down");
                         }
                         break;
                     case "left":
                         entity.collisionArea.x -= entity.speed;
-                        if (gp.objectManager.getObjects().get(i).getCollisionArea().intersects(entity.collisionArea)) {
-                            if (gp.objectManager.getObjects().get(i).isCollision()) {
-                                entity.collision = true;
-                            }
+                        if (entity.collisionArea.intersects(gp.objectManager.getObjects().get(i).getCollisionArea())) {
                             if (player)
-                                return i;
+                                index = i;
                         }
+                        System.out.println("left");
+
                         break;
                     case "right":
                         entity.collisionArea.x += entity.speed;
-                        if (gp.objectManager.getObjects().get(i).getCollisionArea().intersects(entity.collisionArea)) {
-                            if (gp.objectManager.getObjects().get(i).isCollision()) {
-                                entity.collision = true;
-                            }
+                        if (entity.collisionArea.intersects(gp.objectManager.getObjects().get(i).getCollisionArea())) {
                             if (player)
-                                return i;
+                                index = i;
+                            System.out.println("right");
                         }
                         break;
                 }
