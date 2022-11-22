@@ -16,6 +16,10 @@ public abstract class SuperObject {
     protected int collisionAreaDefaultX = 0;
     protected int collisionAreaDefaultY = 0;
 
+    public BufferedImage getImage() {
+        return image;
+    }
+
     public String getType() {
         return type;
     }

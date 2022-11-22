@@ -33,22 +33,15 @@ public class Player extends Entity {
         getPlayerImage();
     }
     //GETTERS
-
+    public int getHealthPotionsAmount() {
+        return healthPotionsAmount;
+    }
     public int getPositionOnScreenX() {
         return positionOnScreenX;
     }
-
     public int getPositionOnScreenY() {
         return positionOnScreenY;
     }
-
-    public void setDefaultValues() {
-        worldX = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
-        worldY = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
-        speed = 4;
-        direction = "down";
-    }
-
     public void getPlayerImage() {
 
         try {
@@ -69,7 +62,12 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-
+    public void setDefaultValues() {
+        worldX = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
+        worldY = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
+        speed = 4;
+        direction = "down";
+    }
     public void pickUpObject(int i) {
         if (i != 999) {
             String item = gp.getObjectManager().getObjects().get(i).getName();
@@ -77,24 +75,24 @@ public class Player extends Entity {
             switch (item) {
                 case "Small Health Potion":
                     healthPotionsAmount++;
-                    System.out.println("Small Health Potions: " + healthPotionsAmount + ".");
                     gp.getObjectManager().getObjects().get(i).onPickUp();
                     gp.getObjectManager().getObjects().remove(i);
+                    gp.getUi().showMessage("Small Health Potion added to your inventory.", 2);
                     break;
                 case "Small Speed Potion":
-                    System.out.println("Drinking speed potion! Wrrrrrrrrrrrrrruuummmmmm!");
                     gp.getObjectManager().getObjects().get(i).onPickUp();
                     gp.getObjectManager().getObjects().remove(i);
+                    gp.getUi().showMessage("Drinking speed potion! Wrrrrrrrrrrrrrruuummmmmm!", 2);
                     break;
                 case "Book":
-                    System.out.println("I feel incredible smart!");
                     gp.getObjectManager().getObjects().get(i).onPickUp();
                     gp.getObjectManager().getObjects().remove(i);
+                    gp.getUi().showMessage("I feel incredible smart!", 2);
+                    break;
 
             }
         }
     }
-
     public void update() {
 
 
@@ -142,8 +140,6 @@ public class Player extends Entity {
 
 
     }
-
-
     public void draw(Graphics2D g2) {
 
 
