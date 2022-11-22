@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     // FPS
     int FPS = 60;
+    //DEBUG
+    long lowestInterval = Long.MAX_VALUE;
 
     // SYSTEM
     Thread gameThread;
@@ -68,6 +70,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public CollisionDetector getCollisionDetector() {
         return collisionDetector;
+    }
+    public TileManager getTileManager() {
+        return tileManager;
     }
 
     // CONSTRUCTORS
@@ -161,6 +166,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        //DEBUG
+//        long drawStart = System.nanoTime();
 
         //TILES
         tileManager.draw(g2);
@@ -176,6 +183,14 @@ public class GamePanel extends JPanel implements Runnable {
         ui.draw(g2);
 
         g2.dispose();
+
+
+        // DEBUG
+//        long drawInterval = System.nanoTime() - drawStart;
+//        if (drawInterval< lowestInterval)
+//            lowestInterval = drawInterval;
+//        System.out.println("lowest interval : "+lowestInterval);
+//        System.out.println(drawInterval);
 
     }
 

@@ -67,7 +67,7 @@ public abstract class SuperObject {
                 worldY + gp.getTileSize() > gp.getPlayer().worldY - gp.getPlayer().getPositionOnScreenY() &&
                 worldY - gp.getTileSize() < gp.getPlayer().worldY + gp.getPlayer().getPositionOnScreenY()) {
 
-            g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
+            g2.drawImage(image, screenX, screenY, null);
         }
 
     }

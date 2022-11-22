@@ -17,10 +17,7 @@ public class ObjectBook extends SuperObject{
         this.worldY = row * gp.getTileSize();
         try {
             BufferedImage i = ImageIO.read(getClass().getResourceAsStream("/sprites/items/books.png")).getSubimage(48, 0, 16, 16);
-            this.image = new BufferedImage(gp.getTileSize(), gp.getTileSize(),i.getType());
-            Graphics2D g2 = image.createGraphics();
-            g2.drawImage(i,0,0,gp.getTileSize(),gp.getTileSize(),null);
-            g2.dispose();
+            this.image = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(),i);
         } catch (IOException e) {
             e.printStackTrace();
         }

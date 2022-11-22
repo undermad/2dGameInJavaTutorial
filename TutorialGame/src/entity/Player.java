@@ -46,17 +46,24 @@ public class Player extends Entity {
 
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 48, 16, 16);
+            up1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(),up1);
             up2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 48, 16, 16);
+            up2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), up2);
             down1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 0, 16, 16);
+            down1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), down1);
             down2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 0, 16, 16);
+            down2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), down2);
             left1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 16, 16, 16);
+            left1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), left1);
             left2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 16, 16, 16);
+            left2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), left2);
             right1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 32, 16, 16);
+            right1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), right1);
             right2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 32, 16, 16);
+            right2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), right2);
+
             standDown = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(16, 0, 16, 16);
-            standUp = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(16, 48, 16, 16);
-            standLeft = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(16, 16, 16, 16);
-            standRight = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(16, 32, 16, 16);
+            standDown = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), standDown);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -176,7 +183,7 @@ public class Player extends Entity {
             image = standDown;
 
 
-        g2.drawImage(image, positionOnScreenX, positionOnScreenY, gp.getTileSize(), gp.getTileSize(), null);
+        g2.drawImage(image, positionOnScreenX, positionOnScreenY, null);
 
 
     }

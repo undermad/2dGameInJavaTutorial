@@ -14,14 +14,11 @@ public class ObjectSmallHealthPotion extends SuperObject {
         this.type = "Potion";
         this.collision = true;
         this.gp = gp;
-        this.worldX = column * gp.getTileSize();
-        this.worldY = row * gp.getTileSize();
+        this.worldX = column * gp.getTileSize()+3;
+        this.worldY = row * gp.getTileSize()+3;
         try {
             BufferedImage i = ImageIO.read(getClass().getResourceAsStream("/sprites/items/potions.png")).getSubimage(48, 224, 16, 16);
-            this.image = new BufferedImage(gp.getTileSize(), gp.getTileSize(),i.getType());
-            Graphics2D g2 = image.createGraphics();
-            g2.drawImage(i,0,0,gp.getTileSize(),gp.getTileSize(),null);
-            g2.dispose();
+            this.image = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(),i);
         } catch (IOException e) {
             e.printStackTrace();
         }
