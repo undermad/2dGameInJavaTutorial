@@ -7,7 +7,8 @@ import java.io.IOException;
 
 public class UI {
     private GamePanel gp;
-    private final Font SANS_SERIF_BOLD;
+    private Graphics2D g2;
+    private final Font SANS_SERIF;
     private BufferedImage smallHealthPotionImage;
     private String message;
     private boolean showMessage = false;
@@ -19,7 +20,7 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        this.SANS_SERIF_BOLD = new Font("SANS_SERIF", Font.BOLD, 25);
+        this.SANS_SERIF = new Font("SANS_SERIF", Font.PLAIN, 25);
         try {
             smallHealthPotionImage = ImageIO.read(getClass().getResourceAsStream("/sprites/items/potions.png")).getSubimage(48, 224, 16, 16);
         } catch (IOException e) {
@@ -35,7 +36,8 @@ public class UI {
 
     public void draw(Graphics2D g2) {
 
-        g2.setFont(SANS_SERIF_BOLD);
+        this.g2 = g2;
+        g2.setFont(SANS_SERIF);
         g2.setColor(Color.WHITE);
         g2.drawImage(smallHealthPotionImage, 0, 10, gp.getTileSize(), gp.getTileSize(), null);
         g2.drawString("" + gp.getPlayer().getHealthPotionsAmount(), 50, 45);
@@ -46,7 +48,7 @@ public class UI {
             messageY = gp.screenHeight - gp.getTileSize()/2;
 
 
-            g2.setFont(SANS_SERIF_BOLD.deriveFont(Font.ITALIC, 10F));
+            g2.setFont(SANS_SERIF.deriveFont(Font.ITALIC, 10F));
             g2.drawString(message, messageX, messageY);
             messageDurationCounter++;
             if (messageDurationCounter >= messageDuration) {
@@ -55,7 +57,43 @@ public class UI {
                 messageDurationCounter = 0;
             }
         }
+        if(gp.getGameState() == gp.getPlayState()){
+
+        } else if (gp.getGameState() == gp.getPauseState()) {
+            g2.setFont(SANS_SERIF.deriveFont(Font.CENTER_BASELINE, 50));
+            drawPauseScreen();
+        }
 
     }
 
+    private void drawPauseScreen() {
+        String text = "PAUSE";
+
+        int x = drawOnScreenCenterX(text);
+        int y = gp.getScreenHeight()/2;
+        g2.drawString(text,x,y);
+
+    }
+
+    private int drawOnScreenCenterX(String text) {
+        return (gp.getScreenWidth() / 2) - g2.getFontMetrics().stringWidth(text)/2;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

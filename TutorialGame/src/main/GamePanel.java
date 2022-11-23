@@ -1,5 +1,6 @@
 package main;
 
+import entity.EntityManager;
 import entity.Player;
 import objects.ObjectManager;
 import tile.TileManager;
@@ -25,52 +26,85 @@ public class GamePanel extends JPanel implements Runnable {
     // FPS
     int FPS = 60;
     //DEBUG
-    long lowestInterval = Long.MAX_VALUE;
+//    long lowestInterval = Long.MAX_VALUE;
 
     // SYSTEM
     Thread gameThread;
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     CollisionDetector collisionDetector = new CollisionDetector(this);
     TileManager tileManager = new TileManager(this);
-    ObjectManager objectManager = new ObjectManager(this);
     Sound soundMusic = new Sound();
     Sound soundEffects = new Sound();
     UI ui = new UI(this);
 
     // PLAYER AND OBJECTS
-    Player player = new Player(this, keyH);
+    Player player = new Player("Ectimel",this, keyH);
+    ObjectManager objectManager = new ObjectManager(this);
+    EntityManager entityManager = new EntityManager(this);
+
+    //STATE
+    private int gameState;
+    private final int playState = 1;
+    private final int pauseState = 2;
+
+    // SETTERS
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
+    }
+
 
     // GETTERS
+
+    public int getGameState() {
+        return gameState;
+    }
+    public int getPlayState() {
+        return playState;
+    }
+    public int getPauseState() {
+        return pauseState;
+    }
     public UI getUi() {
         return ui;
     }
+
     public int getFPS() {
         return FPS;
     }
+
     public ObjectManager getObjectManager() {
         return objectManager;
     }
+
     public int getTileSize() {
         return tileSize;
     }
+
     public int getMaxWorldCol() {
         return maxWorldCol;
     }
+
     public int getMaxWorldRow() {
         return maxWorldRow;
     }
+
     public Player getPlayer() {
         return player;
     }
+
     public int getScreenWidth() {
         return screenWidth;
     }
+
     public int getScreenHeight() {
         return screenHeight;
     }
+
     public CollisionDetector getCollisionDetector() {
         return collisionDetector;
     }
+
     public TileManager getTileManager() {
         return tileManager;
     }
@@ -86,33 +120,39 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     // METHODS
-    public void setupGame(){
-        objectManager.setObjects();
+    public void setupGame() {
+        objectManager.createObjects();
+        entityManager.createEntities();
         playMusic(0);
+        gameState = playState;
     }
-    public void playMusic(int i){
+
+    public void playMusic(int i) {
         soundMusic.setFile(i);
         soundMusic.play();
         soundMusic.loop();
     }
-    public void stopMusic(){
+
+    public void stopMusic() {
         soundMusic.stop();
     }
-    public void playSoundEffect(int i){
+
+    public void playSoundEffect(int i) {
         soundEffects.setFile(i);
         soundEffects.play();
     }
+
     public void startGameThread() {
 
         gameThread = new Thread(this);
-        gameThread.run();
+        gameThread.start();
     }
 
     @Override
     public void run() {
 
         // 1 000 000 000 nanoseconds = 1second
-        double drawInterval = 1000000000 / FPS; // 16 666 666 = 0,01666 second
+        double drawInterval = 1000000000f / FPS; // 16 666 666 = 0,01666 second
         double nextDrawTime = System.nanoTime() + drawInterval;
         long currentTime;
         long lastTime = System.nanoTime();
@@ -157,7 +197,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        player.update();
+        if (gameState == playState) {
+            player.update();
+        } else if (gameState == pauseState) {
+            System.out.println("Game paused");
+        }
 
     }
 
@@ -173,8 +217,12 @@ public class GamePanel extends JPanel implements Runnable {
         tileManager.draw(g2);
 
         //OBJECTS
-        for (int i = 0; i<objectManager.getObjects().size(); i++){
+        for (int i = 0; i < objectManager.getObjects().size(); i++) {
             objectManager.getObjects().get(i).draw(g2, this);
+        }
+        //ENTITIES
+        for (int i = 0; i<entityManager.getEntities().size(); i++) {
+            entityManager.getEntities().get(i).draw(g2);
         }
         //PLAYER
         player.draw(g2);

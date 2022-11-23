@@ -3,14 +3,11 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyHandler;
 
     private final int positionOnScreenX;
@@ -18,8 +15,8 @@ public class Player extends Entity {
     private int healthPotionsAmount = 0;
 
 
-    public Player(GamePanel gp, KeyHandler keyHandler) {
-        this.gp = gp;
+    public Player(String name, GamePanel gp, KeyHandler keyHandler) {
+        super(gp, name);
         this.keyHandler = keyHandler;
 
         this.positionOnScreenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2); //POSITION ON SCREEN
@@ -30,51 +27,42 @@ public class Player extends Entity {
         this.collisionAreaDefaultY = collisionArea.y;
 
         setDefaultValues();
-        getPlayerImage();
+        getEntityImage();
     }
+
     //GETTERS
     public int getHealthPotionsAmount() {
         return healthPotionsAmount;
     }
+
     public int getPositionOnScreenX() {
         return positionOnScreenX;
     }
+
     public int getPositionOnScreenY() {
         return positionOnScreenY;
     }
-    public void getPlayerImage() {
 
-        try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 48, 16, 16);
-            up1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(),up1);
-            up2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 48, 16, 16);
-            up2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), up2);
-            down1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 0, 16, 16);
-            down1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), down1);
-            down2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 0, 16, 16);
-            down2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), down2);
-            left1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 16, 16, 16);
-            left1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), left1);
-            left2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 16, 16, 16);
-            left2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), left2);
-            right1 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(0, 32, 16, 16);
-            right1 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), right1);
-            right2 = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(32, 32, 16, 16);
-            right2 = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), right2);
-
-            standDown = ImageIO.read(getClass().getResourceAsStream("/sprites/characters/06-conjurer.png")).getSubimage(16, 0, 16, 16);
-            standDown = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(), standDown);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void getEntityImage() {
+        up1 = imageSetup("06-conjurer.png", 0, 48);
+        up2 = imageSetup("06-conjurer.png", 32, 48);
+        down1 = imageSetup("06-conjurer.png", 0, 0);
+        down2 = imageSetup("06-conjurer.png", 32, 0);
+        left1 = imageSetup("06-conjurer.png", 0, 16);
+        left2 = imageSetup("06-conjurer.png", 32, 16);
+        right1 = imageSetup("06-conjurer.png", 0, 32);
+        right2 = imageSetup("06-conjurer.png", 32, 32);
+        standDown = imageSetup("06-conjurer.png", 16, 0);
     }
+
     public void setDefaultValues() {
         worldX = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
         worldY = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
         speed = 4;
         direction = "down";
     }
+
     public void pickUpObject(int i) {
         if (i != 999) {
             String item = gp.getObjectManager().getObjects().get(i).getName();
@@ -100,6 +88,8 @@ public class Player extends Entity {
             }
         }
     }
+
+    @Override
     public void update() {
 
 
@@ -107,14 +97,14 @@ public class Player extends Entity {
                 keyHandler.aKeypad == true || keyHandler.sKeypad == true) {
             spriteCounter++;
             if (spriteCounter > 6) {
-                if (spriteNum == 1)
-                    spriteNum = 0;
+                if (spriteAnimationFrame == 1)
+                    spriteAnimationFrame = 0;
                 else
-                    spriteNum = 1;
+                    spriteAnimationFrame = 1;
 
                 spriteCounter = 0;
             }
-            isMoving = true;
+            this.isMoving = true;
 
             //CHECK TILE COLLISION
             collision = false;
@@ -147,42 +137,11 @@ public class Player extends Entity {
 
 
     }
+
+    @Override
     public void draw(Graphics2D g2) {
 
-
-        BufferedImage image = null;
-        if (isMoving) {
-            switch (direction) {
-                case "up":
-                    if (spriteNum == 1)
-                        image = up1;
-                    else
-                        image = up2;
-                    break;
-                case "down":
-                    if (spriteNum == 1)
-                        image = down1;
-                    else
-                        image = down2;
-                    break;
-                case "right":
-                    if (spriteNum == 1)
-                        image = right1;
-                    else
-                        image = right2;
-                    break;
-
-                case "left":
-                    if (spriteNum == 1)
-                        image = left1;
-                    else
-                        image = left2;
-                    break;
-            }
-        } else
-            image = standDown;
-
-
+        BufferedImage image = drawAnimationFrame();
         g2.drawImage(image, positionOnScreenX, positionOnScreenY, null);
 
 

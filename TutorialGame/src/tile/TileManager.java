@@ -1,6 +1,7 @@
 package tile;
 
 import main.GamePanel;
+import main.UtilityTools;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,21 +33,12 @@ public class TileManager {
         return tiles;
     }
 
-
-    public BufferedImage scaleImage(int x, int y, BufferedImage image) {
-        BufferedImage scaledImage = new BufferedImage(gp.getTileSize(), gp.getTileSize(), image.getType());
-        Graphics2D g2 = scaledImage.createGraphics();
-        g2.drawImage(image, 0, 0, x, y, null);
-        g2.dispose();
-
-        return scaledImage;
-    }
-    public void setup (int index, String imagePath, int drawFromX, int drawFromY, boolean collision){
+    private void setup (int index, String imagePath, int drawFromX, int drawFromY, boolean collision){
         tiles[index] = new Tile();
         tiles[index].collision = collision;
         try {
             tiles[index].image = ImageIO.read(getClass().getResourceAsStream("/sprites/tiles/" + imagePath)).getSubimage(drawFromX, drawFromY, 16, 16);
-            tiles[index].image = scaleImage(gp.getTileSize(),gp.getTileSize(), tiles[index].image);
+            tiles[index].image = UtilityTools.scaleImage(gp.getTileSize(),gp.getTileSize(),gp.getTileSize(),gp.getTileSize(), tiles[index].image);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

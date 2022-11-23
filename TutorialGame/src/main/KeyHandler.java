@@ -7,6 +7,11 @@ import java.util.ArrayList;
 public class KeyHandler implements KeyListener {
 
     public boolean wKeypad, sKeypad, aKeypad, dKeypad;
+    GamePanel gp;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -27,6 +32,12 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             dKeypad = true;
+        }
+        if (code == KeyEvent.VK_P) {
+            if (gp.getGameState() == gp.getPlayState()){
+                gp.setGameState(gp.getPauseState());
+            } else
+                gp.setGameState(gp.getPlayState());
         }
 
     }

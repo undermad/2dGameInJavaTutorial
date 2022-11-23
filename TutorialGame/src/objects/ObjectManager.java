@@ -3,7 +3,6 @@ package objects;
 import main.GamePanel;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ObjectManager {
 
@@ -19,7 +18,7 @@ public class ObjectManager {
         return objects;
     }
 
-    public void setObjects() {
+    public void createObjects() {
 
         objects.add(new ObjectSmallHealthPotion(23,22,gp));
         objects.add(new ObjectBook(23,23,gp));

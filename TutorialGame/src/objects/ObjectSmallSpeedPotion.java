@@ -1,6 +1,7 @@
 package objects;
 
 import main.GamePanel;
+import main.UtilityTools;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,7 +18,7 @@ public class ObjectSmallSpeedPotion extends SuperObject{
         this.collision = false;
         try {
             BufferedImage i = ImageIO.read(getClass().getResourceAsStream("/sprites/items/potions.png")).getSubimage(144, 224, 16, 16);
-            this.image = gp.getTileManager().scaleImage(gp.getTileSize(),gp.getTileSize(),i);
+            this.image = UtilityTools.scaleImage(gp.getTileSize(),gp.getTileSize(),gp.getTileSize(),gp.getTileSize(),i);
         } catch (IOException e) {
             e.printStackTrace();
         }
