@@ -61,55 +61,45 @@ public class GamePanel extends JPanel implements Runnable {
     public int getGameState() {
         return gameState;
     }
-
     public int getPlayState() {
         return playState;
     }
-
     public int getPauseState() {
         return pauseState;
     }
-
     public UI getUi() {
         return ui;
     }
-
     public int getFPS() {
         return FPS;
     }
-
     public ObjectManager getObjectManager() {
         return objectManager;
     }
-
     public int getTileSize() {
         return tileSize;
     }
-
     public int getMaxWorldCol() {
         return maxWorldCol;
     }
-
     public int getMaxWorldRow() {
         return maxWorldRow;
     }
-
     public Player getPlayer() {
         return player;
     }
-
     public int getScreenWidth() {
         return screenWidth;
     }
-
     public int getScreenHeight() {
         return screenHeight;
     }
-
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
     public CollisionDetector getCollisionDetector() {
         return collisionDetector;
     }
-
     public TileManager getTileManager() {
         return tileManager;
     }

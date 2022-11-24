@@ -93,9 +93,9 @@ public class Player extends Entity {
     @Override
     public void setBehavior() {
     }
+
     @Override
     public void update() {
-
 
         if (keyHandler.wKeypad == true || keyHandler.dKeypad == true ||
                 keyHandler.aKeypad == true || keyHandler.sKeypad == true) {
@@ -110,8 +110,10 @@ public class Player extends Entity {
             }
             this.isMoving = true;
 
-            //CHECK TILE COLLISION
+
+            //CHECK TILE/NPC COLLISION
             collision = false;
+            gp.getCollisionDetector().checkNPC(this, gp.getEntityManager().getEntities());
             gp.getCollisionDetector().checkTile(this);
             if (collision == false) {
                 if (direction == "up") worldY -= speed;

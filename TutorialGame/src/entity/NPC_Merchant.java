@@ -71,13 +71,13 @@ public class NPC_Merchant extends Entity {
             spriteCounter = 0;
         }
 
-        //CHECK TILE COLLISION
-        int squareMove = gp.getTileSize() / speed;
+        //CHECK TILE/PLAYER COLLISION
 
         boolean out = true;
         while (out) {
             collision = false;
             gp.getCollisionDetector().checkTile(this);
+            gp.getCollisionDetector().checkPlayer(this,this.player);
             if (collision == false) {
                 if (direction == "up") {
                     worldY -= speed;

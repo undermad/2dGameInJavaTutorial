@@ -14,6 +14,7 @@ public abstract class Entity {
     public int speed;
     public String name;
     public int behaviorLock = 0;
+    public Player player;
 
     public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2, standDown, standUp, standLeft, standRight;
     public String direction = "down";
@@ -27,6 +28,27 @@ public abstract class Entity {
     public Entity(GamePanel gp, String name) {
         this.name = name;
         this.gp = gp;
+        this.player = gp.getPlayer();
+    }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
+    }
+
+    public Rectangle getCollisionArea() {
+        return collisionArea;
+    }
+
+    public int getCollisionAreaDefaultX() {
+        return collisionAreaDefaultX;
+    }
+
+    public int getCollisionAreaDefaultY() {
+        return collisionAreaDefaultY;
     }
 
     public abstract void update();
