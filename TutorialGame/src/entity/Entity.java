@@ -13,6 +13,7 @@ public abstract class Entity {
     public int worldX, worldY;
     public int speed;
     public String name;
+    public int behaviorLock = 0;
 
     public BufferedImage up1, up2, down1, down2, right1, right2, left1, left2, standDown, standUp, standLeft, standRight;
     public String direction = "down";
@@ -30,6 +31,7 @@ public abstract class Entity {
 
     public abstract void update();
     public abstract void getEntityImage();
+    public abstract void setBehavior();
 
     public void draw(Graphics2D g2){
         int screenX = worldX - gp.getPlayer().worldX + gp.getPlayer().getPositionOnScreenX();
@@ -85,6 +87,8 @@ public abstract class Entity {
                     else
                         image = left2;
                     break;
+                case "stand":
+                    image = standDown;
             }
         } else
             image = standDown;

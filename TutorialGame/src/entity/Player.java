@@ -56,6 +56,7 @@ public class Player extends Entity {
         standDown = imageSetup("06-conjurer.png", 16, 0);
     }
 
+
     public void setDefaultValues() {
         worldX = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
         worldY = (gp.getTileSize() * 25) - (gp.getTileSize() / 2); //POSITION IN WORLD
@@ -89,6 +90,9 @@ public class Player extends Entity {
         }
     }
 
+    @Override
+    public void setBehavior() {
+    }
     @Override
     public void update() {
 

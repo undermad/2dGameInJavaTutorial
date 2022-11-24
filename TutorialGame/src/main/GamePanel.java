@@ -1,8 +1,10 @@
 package main;
 
+import entity.Entity;
 import entity.EntityManager;
 import entity.Player;
 import objects.ObjectManager;
+import objects.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -38,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     UI ui = new UI(this);
 
     // PLAYER AND OBJECTS
-    Player player = new Player("Ectimel",this, keyH);
+    Player player = new Player("Ectimel", this, keyH);
     ObjectManager objectManager = new ObjectManager(this);
     EntityManager entityManager = new EntityManager(this);
 
@@ -59,12 +61,15 @@ public class GamePanel extends JPanel implements Runnable {
     public int getGameState() {
         return gameState;
     }
+
     public int getPlayState() {
         return playState;
     }
+
     public int getPauseState() {
         return pauseState;
     }
+
     public UI getUi() {
         return ui;
     }
@@ -198,7 +203,15 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
 
         if (gameState == playState) {
+            //PLAYER
             player.update();
+
+            //ENTITIES
+            for (Entity e :
+                    entityManager.getEntities()) {
+                e.update();
+            }
+
         } else if (gameState == pauseState) {
             System.out.println("Game paused");
         }
@@ -217,12 +230,17 @@ public class GamePanel extends JPanel implements Runnable {
         tileManager.draw(g2);
 
         //OBJECTS
-        for (int i = 0; i < objectManager.getObjects().size(); i++) {
-            objectManager.getObjects().get(i).draw(g2, this);
+        for (SuperObject o :
+                objectManager.getObjects()) {
+            o.draw(g2, this);
         }
+//        for (int i = 0; i < objectManager.getObjects().size(); i++) {
+//            objectManager.getObjects().get(i).draw(g2, this);
+//        }
         //ENTITIES
-        for (int i = 0; i<entityManager.getEntities().size(); i++) {
-            entityManager.getEntities().get(i).draw(g2);
+        for (Entity e :
+                entityManager.getEntities()) {
+            e.draw(g2);
         }
         //PLAYER
         player.draw(g2);

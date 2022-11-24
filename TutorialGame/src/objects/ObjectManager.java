@@ -3,18 +3,19 @@ package objects;
 import main.GamePanel;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ObjectManager {
 
     private GamePanel gp;
-    private ArrayList<SuperObject> objects;
+    private CopyOnWriteArrayList<SuperObject> objects;
 
     public ObjectManager(GamePanel gp) {
         this.gp = gp;
-        this.objects = new ArrayList<>();
+        this.objects = new CopyOnWriteArrayList<>();
     }
 
-    public ArrayList<SuperObject> getObjects() {
+    public CopyOnWriteArrayList<SuperObject> getObjects() {
         return objects;
     }
 
